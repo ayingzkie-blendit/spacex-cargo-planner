@@ -42,6 +42,9 @@ const Shipment = ({ shipment, dispatch }) => {
             <input
               value={shipment?.boxes || ""}
               onChange={(val) => handleChange(val.target.value)}
+              style={{
+                width: "50%",
+              }}
             />
           </div>
         </>
