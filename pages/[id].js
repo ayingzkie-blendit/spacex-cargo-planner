@@ -26,19 +26,23 @@ const Shipment = ({ shipment, dispatch }) => {
     <>
       {!_.isEmpty(shipment) ? (
         <>
-          <div>
+          <div style={{ margin: "20px" }}>
             <h1>{shipment.name}</h1>
           </div>
 
-          <div>
+          <div style={{ margin: "20px" }}>
             <h4>
-              <a>{shipment.email}</a>
+              <a href={`mailto:${shipment.email}`}>{shipment.email}</a>
             </h4>
           </div>
-          <div>
-            <span>Number of cargo bays: {bays || 0}</span>
+          <div style={{ margin: "20px" }}>
+            <span>
+              Number of cargo bays: <b>{bays || 0}</b>
+            </span>
           </div>
-          <div>
+          <div style={{ margin: "20px" }}>
+            <label>Cargo boxes</label>
+            <br />
             <input
               value={shipment?.boxes || ""}
               onChange={(val) => handleChange(val.target.value)}

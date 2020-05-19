@@ -8,6 +8,8 @@ import {
   loadShipmentFiltered,
 } from "../redux/actions";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const Header = ({ error, shipments, dispatch }) => {
   const router = useRouter();
   const inputRef = useRef(null);
@@ -32,13 +34,22 @@ const Header = ({ error, shipments, dispatch }) => {
         <a className={"logo"}>Cargo Planner</a>
       </div>
       <div>
-        <input className={"input"} onChange={handleChange} />
+        {/*         
+        <input className={"input"} onChange={handleChange} /> */}
+        <div className="input-container">
+          <i>
+            <FontAwesomeIcon icon={faSearch} className="icon" />
+          </i>
+          <input className="input-field" type="text" onChange={handleChange} />
+        </div>
       </div>
       <div className={"headerRight"}>
-        <a type="fil" onClick={handleClickEvent}>
+        <a className="button" type="fil" onClick={handleClickEvent}>
           Load
         </a>
-        <a onClick={onSaveShipment}>Save</a>
+        <a className="button" onClick={onSaveShipment}>
+          Save
+        </a>
       </div>
     </div>
   );
