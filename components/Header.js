@@ -15,23 +15,6 @@ const Header = ({ error, shipments, dispatch }) => {
     dispatch(loadShipmentFiltered(filter.target.value));
   };
 
-  // const uploadBtnClickHandler = () => {
-  //   inputRef.current.click();
-  // };
-
-  // const fileInputChange = (event) => {
-  //   var reader = new FileReader();
-  //   reader.onload = onReaderLoad;
-  //   reader.readAsText(event.target.files[0]);
-  // };
-
-  // const onReaderLoad = (event) => {
-  //   console.log(event.target.result);
-  //   var obj = JSON.parse(event.target.result);
-
-  //   dispatch(loadShipmentsAllSuccess(obj));
-  // };
-
   const handleClickEvent = () => {
     dispatch(loadShipmentFromNetwork());
   };
@@ -53,13 +36,6 @@ const Header = ({ error, shipments, dispatch }) => {
         <input className={"input"} onChange={handleChange} />
       </div>
       <div className={"headerRight"}>
-        {/* <input
-          type={"file"}
-          hidden
-          ref={inputRef}
-          onChange={fileInputChange}
-          accept={".json"}
-        /> */}
         <a type="fil" onClick={handleClickEvent}>
           Load
         </a>

@@ -19,9 +19,6 @@ const SideNavigation = ({ shipments }) => {
             className={router.query.id === company.id ? "active" : null}
             onClick={() => handleClick(company.id)}
           >
-            {/* <Link href={`/[id]`} as={`/${company.id}`}>
-              {company.name}
-            </Link> */}
             {company.name}
           </a>
         );
