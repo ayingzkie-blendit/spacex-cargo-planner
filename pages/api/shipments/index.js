@@ -1,4 +1,4 @@
-import shipments from "../../../public/static/shipments.json";
+import shipments from "../../../shipments.json";
 import _ from "lodash";
 
 export default (req, res) => {

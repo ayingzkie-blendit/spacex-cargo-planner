@@ -2,37 +2,46 @@ import React, { useRef } from "react";
 import "../styles/Header.css";
 import { connect } from "react-redux";
 import {
-  loadShipmentFiltered,
-  loadShipmentsAllSuccess,
+  loadShipmentFromNetwork,
   saveShipments,
+  loadShipmentRecord,
+  loadShipmentFiltered,
 } from "../redux/actions";
-
+import { useRouter } from "next/router";
 const Header = ({ error, shipments, dispatch }) => {
+  const router = useRouter();
   const inputRef = useRef(null);
   const handleChange = (filter) => {
     dispatch(loadShipmentFiltered(filter.target.value));
   };
 
-  const uploadBtnClickHandler = () => {
-    inputRef.current.click();
-  };
+  // const uploadBtnClickHandler = () => {
+  //   inputRef.current.click();
+  // };
 
-  const fileInputChange = (event) => {
-    var reader = new FileReader();
-    reader.onload = onReaderLoad;
-    reader.readAsText(event.target.files[0]);
-  };
+  // const fileInputChange = (event) => {
+  //   var reader = new FileReader();
+  //   reader.onload = onReaderLoad;
+  //   reader.readAsText(event.target.files[0]);
+  // };
 
-  const onReaderLoad = (event) => {
-    console.log(event.target.result);
-    var obj = JSON.parse(event.target.result);
+  // const onReaderLoad = (event) => {
+  //   console.log(event.target.result);
+  //   var obj = JSON.parse(event.target.result);
 
-    dispatch(loadShipmentsAllSuccess(obj));
+  //   dispatch(loadShipmentsAllSuccess(obj));
+  // };
+
+  const handleClickEvent = () => {
+    dispatch(loadShipmentFromNetwork());
   };
 
   const onSaveShipment = () => {
-    console.log("clicked");
     dispatch(saveShipments(shipments));
+    console.log(router.query.id, "id");
+    if (router.query?.id) {
+      dispatch(loadShipmentRecord(router.query.id));
+    }
   };
 
   return (
@@ -44,14 +53,14 @@ const Header = ({ error, shipments, dispatch }) => {
         <input className={"input"} onChange={handleChange} />
       </div>
       <div className={"headerRight"}>
-        <input
+        {/* <input
           type={"file"}
           hidden
           ref={inputRef}
           onChange={fileInputChange}
           accept={".json"}
-        />
-        <a type="fil" onClick={uploadBtnClickHandler}>
+        /> */}
+        <a type="fil" onClick={handleClickEvent}>
           Load
         </a>
         <a onClick={onSaveShipment}>Save</a>

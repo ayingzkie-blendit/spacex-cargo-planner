@@ -11,12 +11,14 @@ import update from "react-addons-update";
 function reducer(state = exampleInitialState, action) {
   switch (action.type) {
     case actionTypes.LOAD_SHIPMENTS_ALL_SUCCESS:
-      return {
-        ...state,
-        ...{ shipments: action.data },
-      };
+      return update(state, {
+        shipments: {
+          $set: action.data,
+        },
+      });
 
     case actionTypes.LOAD_SHIPMENT_RECORD_SUCCESS: {
+      console.log(action, "data");
       return update(state, {
         shipment: {
           $set: action.data,

@@ -26,17 +26,19 @@ es6promise.polyfill();
 
 function* loadShipments() {
   try {
-    const shipments = localStorage.getItem("shipments");
-    if (shipments) {
-      yield put(
-        loadShipmentsAllSuccess(_.orderBy(JSON.parse(shipments), "name"))
-      );
-    } else {
-      const { data } = yield api.getAllShipments();
-      yield put(loadShipmentsAllSuccess(data));
-    }
+    const shipments = localStorage.getItem("shipments") || [];
+    yield put(
+      loadShipmentsAllSuccess(_.orderBy(JSON.parse(shipments), "name"))
+    );
+  } catch (err) {
+    yield put(onFail(err));
+  }
+}
 
-    yield put(onSuccess("Successfully loaded shipememts"));
+function* loadShipmentsFromNetwork() {
+  try {
+    const { data } = yield api.getAllShipments();
+    yield put(loadShipmentsAllSuccess(data));
   } catch (err) {
     yield put(onFail(err));
   }
@@ -63,10 +65,19 @@ function* loadShipmentFiltered(action) {
 
   try {
     const shipment = localStorage.getItem("shipments");
-    const data = _.filter(JSON.parse(shipment), (shipment) =>
-      shipment.name.toLowerCase().includes(filter.toLowerCase())
-    );
-    yield put(loadShipmentsAllSuccess(data));
+    let data2 = [];
+    if (shipment) {
+      data2 = _.filter(JSON.parse(shipment), (shipment) =>
+        shipment.name.toLowerCase().includes(filter.toLowerCase())
+      );
+    }
+
+    // else {
+    //   const { data } = yield api.getAllShipmentsByFilter(filter);
+    //   data2 = data;
+    // }
+
+    yield put(loadShipmentsAllSuccess(data2));
   } catch (err) {
     yield put(onFail(err));
   }
@@ -91,6 +102,11 @@ function* rootSaga() {
     takeLatest(actionTypes.LOAD_SHIPMENT_RECORD, loadShipment),
     takeLatest(actionTypes.LOAD_SHIPMENT_FILTERED, loadShipmentFiltered),
     takeLatest(actionTypes.SAVE_SHIPMENTS, saveShipments),
+    takeLatest(
+      actionTypes.LOAD_SHIPMENTS_FROM_NETWORK,
+      loadShipmentsFromNetwork
+    ),
+    ,
   ]);
 }
 

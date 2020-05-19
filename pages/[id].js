@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { loadShipmentRecord, updateShipment } from "../redux/actions";
 import { getLayout } from "../layouts/MainLayout";
 import _ from "lodash";
+import Alert from "../components/Alert";
 const Shipment = ({ shipment, dispatch }) => {
   const router = useRouter();
   const { id } = router.query;
-  const { boxes } = shipment;
   useEffect(() => {
     dispatch(loadShipmentRecord(id));
   }, [id]);
@@ -17,11 +17,12 @@ const Shipment = ({ shipment, dispatch }) => {
   };
 
   const bays = Math.round(
-    boxes
+    shipment?.boxes
       ?.split(",")
       .map(Number)
       .reduce((a, b) => a + b) / 10
   );
+  console.log(shipment, "boxes");
   return (
     <>
       {!_.isEmpty(shipment) ? (
@@ -40,13 +41,20 @@ const Shipment = ({ shipment, dispatch }) => {
           </div>
           <div>
             <input
-              value={boxes || ""}
+              value={shipment?.boxes || ""}
               onChange={(val) => handleChange(val.target.value)}
             />
           </div>
         </>
       ) : (
-        <div>Shipment still not loaded please save to load.</div>
+        <div>
+          <Alert
+            type={"error"}
+            message={
+              " Cargo not found! Shipment still not saved. Please click save"
+            }
+          />
+        </div>
       )}
     </>
   );

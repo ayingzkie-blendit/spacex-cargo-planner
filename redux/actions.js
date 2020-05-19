@@ -10,10 +10,17 @@ export const actionTypes = {
   SAVE_SHIPMENTS: "SAVE_SHIPMENTS",
   FAIL: "FAIL",
   SUCCESS: "SUCCESS",
+  LOAD_SHIPMENTS_FROM_NETWORK: "LOAD_SHIPMENTS_FROM_NETWORK",
 };
 
 export function loadShipmentsAll() {
   return { type: actionTypes.LOAD_SHIPMENTS_ALL };
+}
+
+export function loadShipmentFromNetwork() {
+  return {
+    type: actionTypes.LOAD_SHIPMENTS_FROM_NETWORK,
+  };
 }
 
 export function loadShipmentFiltered(filter) {

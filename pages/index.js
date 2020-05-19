@@ -1,16 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getLayout } from "../layouts/MainLayout";
+import Alert from "../components/Alert";
+const initialState = {
+  shipments: [],
+};
 const Index = ({ shipments }) => {
+  const [state, setState] = useState(initialState);
+
+  useEffect(
+    () =>
+      setState({
+        ...state,
+        shipments: localStorage.getItem("shipments") || [],
+      }),
+    []
+  );
   return (
     <>
-      {shipmentsLocal ? (
+      {shipments.length === 0 ? (
         <div>
-          No shipments available please load shipments. Please save loaded
-          shipments
+          <Alert
+            type={"error"}
+            message={"No shipmests loaded. Please load shipments"}
+          />
         </div>
       ) : (
-        <div>Welcome to Package Planner App</div>
+        <div>
+          <Alert
+            type={"success"}
+            message={"Shipments loaded from the network!"}
+          />
+        </div>
       )}
     </>
   );
