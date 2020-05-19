@@ -1,28 +1,27 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { getLayout } from "../layouts/MainLayout";
+const Index = ({ shipments }) => {
+  return (
+    <>
+      {shipmentsLocal ? (
+        <div>
+          No shipments available please load shipments. Please save loaded
+          shipments
+        </div>
+      ) : (
+        <div>Welcome to Package Planner App</div>
+      )}
+    </>
+  );
+};
 
-import { loadData, startClock, tickClock } from '../actions'
-import Page from '../components/page'
+Index.getLayout = getLayout;
 
-class Index extends React.Component {
-  static async getInitialProps(props) {
-    const { store, isServer } = props.ctx
-    store.dispatch(tickClock(isServer))
+const mapStateToProps = ({ shipments }) => {
+  return {
+    shipments,
+  };
+};
 
-    if (!store.getState().placeholderData) {
-      store.dispatch(loadData())
-    }
-
-    return { isServer }
-  }
-
-  componentDidMount() {
-    this.props.dispatch(startClock())
-  }
-
-  render() {
-    return <Page title="Index Page" linkTo="/other" NavigateTo="Other Page" />
-  }
-}
-
-export default connect()(Index)
+export default connect(mapStateToProps)(Index);
