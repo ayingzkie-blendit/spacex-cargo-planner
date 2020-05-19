@@ -22,7 +22,6 @@ const Shipment = ({ shipment, dispatch }) => {
       .map(Number)
       .reduce((a, b) => a + b) / 10
   );
-  console.log(shipment, "boxes");
   return (
     <>
       {!_.isEmpty(shipment) ? (

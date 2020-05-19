@@ -19,8 +19,6 @@ class Api {
       params: {
         shipments,
       },
-    }).then((resp) => {
-      console.log(resp, "response");
     });
 
   _get = (path, config) => {

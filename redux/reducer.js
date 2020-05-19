@@ -18,7 +18,6 @@ function reducer(state = exampleInitialState, action) {
       });
 
     case actionTypes.LOAD_SHIPMENT_RECORD_SUCCESS: {
-      console.log(action, "data");
       return update(state, {
         shipment: {
           $set: action.data,

@@ -90,7 +90,6 @@ function* saveShipments(action) {
     yield put(loadShipmentsAllSuccess(actionData));
     yield put(onSuccess("Successfull updated shipments."));
   } catch (error) {
-    console.log(error, "error");
     yield put(onFail(error));
   }
 }

@@ -21,7 +21,6 @@ const Header = ({ error, shipments, dispatch }) => {
 
   const onSaveShipment = () => {
     dispatch(saveShipments(shipments));
-    console.log(router.query.id, "id");
     if (router.query?.id) {
       dispatch(loadShipmentRecord(router.query.id));
     }
