@@ -1,4 +1,4 @@
-# Intstruction
+# Instruction
 
 ```sh
 $ cd spacex-cargo-planner
